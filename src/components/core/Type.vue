@@ -1,20 +1,23 @@
 <template>
-    <div class="parent">
-        {{type.input}}
-        <div class="original gray">&nbsp;(</div>
-        <div v-if="type.input === 'object'" class="original">
-            <AtomType :detail="type.details[0]"/>
-            <div class="gray">&nbsp;[</div>
-            <AtomType :detail="type.details[1]"/>
-            <div class="gray">]</div>
+    <div>
+        <div class="parent" v-if="type.input !== 'void'">
+            {{type.input}}
+            <div class="original gray">&nbsp;(</div>
+            <div v-if="type.input === 'object'" class="original">
+                <AtomType :detail="type.details[0]"/>
+                <div class="gray">&nbsp;[</div>
+                <AtomType :detail="type.details[1]"/>
+                <div class="gray">]</div>
+            </div>
+            <div v-else-if="type.input === 'array'" class="original">
+                <AtomType :detail="type.details[0]"/><div class="gray">[&nbsp;]</div>
+            </div>
+            <div v-else>
+                <AtomType :detail="type.details[0]" class="original"/>
+            </div>
+            <div class="original gray">)</div>
         </div>
-        <div v-else-if="type.input === 'array'" class="original">
-            <AtomType :detail="type.details[0]"/><div class="gray">[&nbsp;]</div>
-        </div>
-        <div v-else>
-            <AtomType :detail="type.details[0]" class="original"/>
-        </div>
-        <div class="original gray">)</div>
+        <div v-else title="Void type">&mdash;</div>
     </div>
 
 </template>

@@ -13,7 +13,7 @@
         </p>
 
         <h3>Params:</h3>
-        <table>
+        <table v-if="!emptyParams()">
             <tr>
                 <th>Name</th>
                 <th>Default</th>
@@ -21,14 +21,14 @@
                 <th>Description</th>
             </tr>
             <!-- Required fields -->
-            <tr class="method__params" v-for="(v, k) in method.params" :key="k" v-if="v.required">
+            <tr v-for="(v, k) in method.params" :key="k" v-if="v.required">
                 <td>{{k}}</td>
-                <td>&mdash;</td>
+                <td title="No default value">&mdash;</td>
                 <td><Type :type="v.type" /></td>
                 <td>{{v.note}}</td>
             </tr>
             <!-- Optional fields -->
-            <tr class="method__params" v-for="(v, k) in method.params" :key="k" v-if="!v.required">
+            <tr v-for="(v, k) in method.params" :key="k" v-if="!v.required">
                 <td>
                     <div class="parent">
                         <div>{{k}}</div>
@@ -40,9 +40,10 @@
                 <td>{{v.note}}</td>
             </tr>
         </table>
+        <p v-else class="method__none" title="No params">&mdash;</p>
 
         <h3>Returns:</h3>
-        <table>
+        <table v-if="!emptyReturns()">
             <tr>
                 <th>Type</th>
                 <th>Description</th>
@@ -52,6 +53,7 @@
                 <td>{{method.retType.note}}</td>
             </tr>
         </table>
+        <p v-else class="method__none" title="No returns">&mdash;</p>
     </div>
 </template>
 
@@ -76,6 +78,20 @@
             getMethod() {
                 apiRequest("__schema.method.get", {name: this.name})
                     .then(response => this.method = response.data.result);
+            },
+            emptyParams() {
+                if (this.method == null || this.method.params == null)
+                    return true;
+                for (var key in this.method.params)
+                    if (this.method.params.hasOwnProperty(key))
+                        return false;
+                return true;
+            },
+            emptyReturns() {
+                if (this.method == null || this.method.retType == null)
+                    return true;
+                return this.method.retType.type.input === "void"
+                        && !this.method.retType.note;
             }
         },
         
@@ -116,11 +132,7 @@
             white-space: pre-line;
         }
 
-        &__params {
-            position: relative;
-        }
-
-        &__returns {
+        &__none {
             position: relative;
             padding: 0px 15px;
         }
