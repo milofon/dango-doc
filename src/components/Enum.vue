@@ -79,6 +79,7 @@
 
         &__note {
             white-space: pre-line;
+            line-height: 175%;
         }
     }
 </style>

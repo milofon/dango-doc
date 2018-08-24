@@ -135,12 +135,14 @@ export default {
     }
     main {
         display: flex;
-        height: 100vh;
+        height: 100%;
         margin-left: auto;
         margin-right: auto;
+        min-width: 1024px;
         overflow: hidden;
     }
     aside {
+        position: absolute;
         height: 100%;
         width: 300px;
         box-sizing: border-box;
@@ -157,7 +159,7 @@ export default {
         background: #4a819e;
     }
     menu {
-        height: calc(100vh - 80px);
+        height: calc(100% - 80px);
         width: 100%;
         margin: 0;
         padding: 10px 40px;
@@ -166,6 +168,7 @@ export default {
         background: #f0f0f0;
     }
     .full {
+        margin-left: 300px;
         width: calc(100% - 300px);
         overflow-y: auto;
     }

@@ -130,6 +130,7 @@
 
         &__description {
             white-space: pre-line;
+            line-height: 175%;
         }
 
         &__none {
