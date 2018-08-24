@@ -6,8 +6,10 @@ import Enum from './components/Enum.vue'
 import Model from './components/Model.vue'
 import Method from './components/Method.vue'
 
+
 Vue.use(Router)
 Vue.config.productionTip = false
+
 
 const router = new Router({
     routes: [
@@ -36,6 +38,7 @@ const router = new Router({
         },
     ]
 })
+
 
 new Vue({
     el: 'entry-component',

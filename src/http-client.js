@@ -1,6 +1,8 @@
 import axios from 'axios';
 
+
 var HTTP = null;
+
 
 export function initHTTPClient(apiURI) {
     HTTP = {
